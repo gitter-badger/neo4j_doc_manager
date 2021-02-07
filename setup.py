@@ -27,7 +27,7 @@ package_metadata = {
     "name": "neo4j-doc-manager",
     "version": "0.1.2",
     "description": "Neo4j Doc manager for Mongo Connector",
-    "long_description": "Neo4j Doc Manager is a tool that will import data in Mongodb for a " 
+    "long_description": "Neo4j Doc Manager is a tool that will import data in Mongodb for a "
                         "Neo4j graph structure, via Mongo-Connector.",
     "author": "Neo4j Team",
     "author_email": "contact@neo4j.com",
@@ -38,7 +38,7 @@ package_metadata = {
         ],
     },
     "packages": packages,
-    "install_requires": ['mongo-connector>=2.1','py2neo==2.0.8','requests>=2.5.1'],
+    "install_requires": ['mongo-connector>=2.1','py2neo>=4.0.0','requests>=2.5.1'],
     "license": "Apache Software License",
     "classifiers": [
         "Development Status :: 5 - Production/Stable",
@@ -58,4 +58,3 @@ try:
     setup(ext_modules=extensions, **package_metadata)
 except:
     setup(**package_metadata)
-
