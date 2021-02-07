@@ -1,11 +1,10 @@
 import re
 import logging
 
-from py2neo.database import GraphError as graph_error, BindError as bind_error
-from py2neo.database import ClientError as client_error
-from py2neo.database import GraphTransactionError as graph_transaction_error
-from py2neo.database import DatabaseError as database_error
-from py2neo.database import TransientError as transient_error
+from py2neo.database.work import Neo4jError as graph_error
+from py2neo.database.work import ClientError as client_error
+from py2neo.database.work import DatabaseError as database_error
+from py2neo.database.work import TransientError as transient_error
 
 from mongo_connector import errors
 from mongo_connector.errors import OperationFailed
@@ -22,9 +21,7 @@ class ErrorHandler(object):
   def __init__(self):
     self.error_hash = {
     graph_error: Neo4jOperationFailed,
-    bind_error: errors.ConnectionFailed,
     database_error: Neo4jOperationFailed,
-    graph_transaction_error: Neo4jOperationFailed,
     client_error: Neo4jOperationFailed,
     transient_error: Neo4jOperationFailed,
 

@@ -13,7 +13,7 @@ from mongo_connector.doc_managers.nodes_and_relationships_builder import NodesAn
 from mongo_connector.doc_managers.nodes_and_relationships_updater import NodesAndRelationshipsUpdater
 from mongo_connector.doc_managers.error_handler import ErrorHandler
 
-from py2neo import Graph, authenticate
+from py2neo import Graph
 
 
 from mongo_connector import errors
@@ -47,7 +47,7 @@ class DocManager(DocManagerBase):
 
   def apply_id_constraint(self, doc_types):
     for doc_type in doc_types:
-      constraint = "CREATE CONSTRAINT ON (d:`{doc_type}`) ASSERT d._id IS UNIQUE".format(doc_type=doc_type)
+      constraint = "CREATE CONSTRAINT cons_{doc_type_c} IF NOT EXISTS ON (d:`{doc_type}`) ASSERT d._id IS UNIQUE".format(doc_type=doc_type, doc_type_c=doc_type.replace("-", "_"))
       self.graph.run(constraint)
 
   def stop(self):
