@@ -47,7 +47,7 @@ class DocManager(DocManagerBase):
 
   def apply_id_constraint(self, doc_types):
     for doc_type in doc_types:
-      constraint = "CREATE CONSTRAINT cons_{doc_type_c} IF NOT EXISTS ON (d:`{doc_type}`) ASSERT d._id IS UNIQUE".format(doc_type=doc_type, doc_type_c=doc_type.replace("-", "_"))
+      constraint = "CREATE CONSTRAINT cons_{doc_type_c} IF NOT EXISTS ON (d:`{doc_type}`) ASSERT d._id IS UNIQUE".format(doc_type=doc_type.replace("-","_"), doc_type_c=doc_type.replace("-", "_"))
       self.graph.run(constraint)
 
   def stop(self):
@@ -61,7 +61,7 @@ class DocManager(DocManagerBase):
     doc_id = u(doc.pop("_id"))
     metadata = { "_ts": timestamp }
     doc = self._formatter.format_document(doc)
-    builder = NodesAndRelationshipsBuilder(doc, doc_type, doc_id, metadata)
+    builder = NodesAndRelationshipsBuilder(doc, doc_type.replace("-","_"), doc_id, metadata)
     self.apply_id_constraint(builder.doc_types)
     tx = self.graph.begin()
     for statement in builder.query_nodes.keys():
@@ -80,7 +80,7 @@ class DocManager(DocManagerBase):
       index, doc_type = self._index_and_mapping(namespace)
       doc_id = u(doc.pop("_id"))
       doc = self._formatter.format_document(doc)
-      builder = NodesAndRelationshipsBuilder(doc, doc_type, doc_id, metadata)
+      builder = NodesAndRelationshipsBuilder(doc, doc_type.replace("-","_"), doc_id, metadata)
       self.apply_id_constraint(builder.doc_types)
       for statement in builder.query_nodes.keys():
         tx.run(statement, builder.query_nodes[statement])
@@ -94,7 +94,7 @@ class DocManager(DocManagerBase):
     tx = self.graph.begin()
     index, doc_type = self._index_and_mapping(namespace)
     updater = NodesAndRelationshipsUpdater()
-    updater.run_update(update_spec, doc_id, doc_type)
+    updater.run_update(update_spec, doc_id, doc_type.replace("-","_"))
     for statement in updater.statements_with_params:
       for key in statement.keys():
         tx.run(key, statement[key])
