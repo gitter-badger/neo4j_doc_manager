@@ -47,8 +47,11 @@ class DocManager(DocManagerBase):
 
   def apply_id_constraint(self, doc_types):
     for doc_type in doc_types:
-      constraint = "CREATE CONSTRAINT cons_{doc_type_c} IF NOT EXISTS ON (d:`{doc_type}`) ASSERT d._id IS UNIQUE".format(doc_type=doc_type.replace("-","_"), doc_type_c=doc_type.replace("-", "_"))
-      self.graph.run(constraint)
+      try:
+          constraint = "CREATE CONSTRAINT cons_{doc_type_c} IF NOT EXISTS ON (d:`{doc_type}`) ASSERT d._id IS UNIQUE".format(doc_type=doc_type.replace("-","_"), doc_type_c=doc_type.replace("-", "_"))
+          self.graph.run(constraint)
+      except:
+          print(constraint)
 
   def stop(self):
     """Stop the auto-commit thread."""
