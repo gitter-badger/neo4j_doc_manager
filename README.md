@@ -2,6 +2,8 @@
 
 # Overview
 
+[![Join the chat at https://gitter.im/neo4j_doc_manager/community](https://badges.gitter.im/neo4j_doc_manager/community.svg)](https://gitter.im/neo4j_doc_manager/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 The [Neo4j](http://neo4j.com/) Doc Manager takes MongoDB documents and makes it easy to query them for relationships by making  them available in a Neo4j graph structure, following the format specified by [Mongo Connector](https://github.com/10gen-labs/mongo-connector).  It is intended for live one-way syncronization from MongoDB to Neo4j, where you have both databases running and take advantage of each databases' strength in your application (polyglot persistance).
 
 ![](https://raw.githubusercontent.com/neo4j-contrib/neo4j_doc_manager/master/docs/resources/images/mongo_connector_2.gif)
